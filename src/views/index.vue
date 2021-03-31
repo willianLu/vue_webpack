@@ -8,6 +8,7 @@
 <script>
 import "@/assets/css/app.less";
 import config from "@/config/test.json";
+import { delayExecute } from "@/assets/js/tool";
 
 export default {
   name: "index",
@@ -19,6 +20,14 @@ export default {
   },
   created() {
     console.log(config, "----------->");
+    this.init();
+  },
+  methods: {
+    async init() {
+      // 测试使用
+      await delayExecute();
+      console.log('-----------初始化');
+    }
   }
 };
 </script>

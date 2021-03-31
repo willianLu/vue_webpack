@@ -6,6 +6,7 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const Webpack = require('webpack');
 const path = require("path");
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 function resolve(dir) {
   return path.join(__dirname, dir);
@@ -36,6 +37,17 @@ module.exports = {
           },
         },
         'css-loader', 'less-loader']
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+            plugins: ['@babel/plugin-transform-runtime']
+          }
+        }
       },
       {
         test: /\.(png|jpe?g|gif|ico|svg)$/,
@@ -74,6 +86,7 @@ module.exports = {
       ]
     }),
     // new Webpack.NamedModulesPlugin(),
-    new Webpack.HotModuleReplacementPlugin()
+    new Webpack.HotModuleReplacementPlugin(),
+    // new BundleAnalyzerPlugin()
   ]
 };
