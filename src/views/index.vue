@@ -9,6 +9,7 @@
 import "@/assets/css/app.less";
 import config from "@/config/test.json";
 import { delayExecute } from "@/assets/js/tool";
+import lodash from 'lodash'
 
 export default {
   name: "index",
@@ -27,6 +28,8 @@ export default {
       // 测试使用
       await delayExecute();
       console.log('-----------初始化');
+      const obj = lodash.defaults({ 'a': 1 }, { 'a': 3, 'b': 2 });
+      console.log(obj, '-----------------loadsh')
     }
   }
 };

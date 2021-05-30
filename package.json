@@ -12,7 +12,10 @@
   "license": "ISC",
   "dependencies": {
     "@babel/runtime": "^7.13.10",
-    "vue": "^2.6.11"
+    "lodash": "^4.17.21",
+    "vue": "^2.6.11",
+    "vue-router": "^3.5.1",
+    "vuex": "^3.6.2"
   },
   "devDependencies": {
     "@babel/core": "^7.13.14",

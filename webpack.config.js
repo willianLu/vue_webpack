@@ -6,7 +6,7 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const Webpack = require('webpack');
 const path = require("path");
-// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 function resolve(dir) {
   return path.join(__dirname, dir);
@@ -21,6 +21,39 @@ module.exports = {
   },
   devServer: {
     hot: true
+  },
+  optimization: {
+    runtimeChunk: true,
+    splitChunks: {
+      cacheGroups: {
+        'vue': {
+          name: 'vue',
+          test: /[\\/]node_modules[\\/]vue[\\/]|[\\/]node_modules[\\/]vue-router[\\/]|[\\/]node_modules[\\/]vuex[\\/]/,
+          priority: -10,
+          filename: '[name].[contenthash:7].js',
+          reuseExistingChunk: true,
+          chunks: 'all',
+        },
+        lodash: {
+          name: 'lodash',
+          test: /[\\/]node_modules[\\/]lodash[\\/]/,
+          priority: -10,
+          chunks: 'all',
+        },
+        vendors: {
+          name: 'vendors',
+          test: /[\\/]node_modules[\\/]/,
+          priority: -15,
+          reuseExistingChunk: true,
+          chunks: 'all',
+        },
+        default: {
+          minChunks: 2,
+          priority: -20,
+          reuseExistingChunk: true,
+        }
+      }
+    }
   },
   module: {
     rules: [
@@ -89,4 +122,4 @@ module.exports = {
     new Webpack.HotModuleReplacementPlugin(),
     // new BundleAnalyzerPlugin()
   ]
-};
+}
